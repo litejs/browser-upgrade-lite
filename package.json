@@ -1,0 +1,20 @@
+{
+  "name": "browser-upgrade-lite",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "Implement new features for old browsers",
+  "main": "browser-upgrade-lite.js",
+  "author": "Lauri Rooden <lauri@rooden.ee>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/litejs/browser-upgrade-lite.git"
+  },
+  "bugs": {
+    "url": "https://github.com/litejs/browser-upgrade-lite/issues"
+  },
+  "keywords": [
+    "browser",
+    "litejs"
+  ],
+  "readmeFilename": "README.md"
+}
