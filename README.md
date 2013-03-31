@@ -8,7 +8,7 @@ Browser upgrade
 
 Implement new features for old browsers.
 Download [compressed][1] 
-(2867 bytes or 1404 bytes gzipped)
+(2720 bytes or 1341 bytes gzipped)
 or [uncompressed][2] source.
 
 

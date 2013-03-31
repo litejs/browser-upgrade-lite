@@ -1,6 +1,6 @@
 {
   "name": "browser-upgrade-lite",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "description": "Implement new features for old browsers",
   "main": "browser-upgrade-lite.js",

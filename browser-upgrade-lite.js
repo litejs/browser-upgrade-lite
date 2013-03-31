@@ -2,16 +2,15 @@
 
 
 /*
-* @version  0.0.1
+* @version  0.0.2
 * @author   Lauri Rooden - https://github.com/litejs/browser-upgrade-lite
 * @license  MIT License  - http://lauri.rooden.ee/mit-license.txt
 */
 
 
 
-!function(w/* window */) {
+!function(win, doc) {
 	var a, b, c
-	, xhrs = []
 	, P = "prototype"
 	, A = Array[P]
 	, O = Object
@@ -22,16 +21,17 @@
 
 	function Nop(){}
 
+	/*
+	* The HTML5 document.head DOM tree accessor
+	*/
 
-	// We need bind in beginning, other ECMAScript 5 stuff will come later
+	doc.head = doc.head || doc.getElementsByTagName("head")[0]
+
+	/*
+	* Function.prototype.bind from ECMAScript5
+	* Basic support:	Chrome 7 Firefox (Gecko) 4.0 (2) IE 9 Opera 11.60 Safari 5.1.4
+	*/
 	I(Function[P], "bind", "var t=this;b=x.call(arguments,1);c=function(){return t.apply(this instanceof c?this:a,b.concat.apply(b,arguments))};if(t[y])c[y]=t[y];return c", [A.slice, P])
-
-
-	// instanceof not implemented in IE 5 MAC
-	// Safari 2.0.2: 416     hasOwnProperty introduced October 31, 2005 (Mac OS X v10.4)
-	/** hasOwnProperty
-	I(Object[P], "hasOwnProperty", "try{b=this.constructor;while(b=b[x])if(b[a]===this[a])return false}catch(e){}return true", [P]);
-	//*/
 
 
 	// Object extensions
@@ -71,18 +71,21 @@
 
 
 
+	/*
+	* `Date.prototype.format` is implemented in `date-format-lite` module.
+	*/
 
 	I(Date[P], "toISOString", "return this.format('isoUtcDateTime')")
 
 	//** base64
-	if (!w.atob) {
+	if (!win.atob) {
 		var ba = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".split("")
 		, bm = {"=":0}
 		
 		for (i = 64; bm[ba[--i]]=i;);
 
 		// base64_encode
-		w.btoa = function(s) {
+		win.btoa = function(s) {
 			for (var out=[],b,i=0,len=s.length;i<len;) {
 				b = s.charCodeAt(i++)<<16 | s.charCodeAt(i++)<<8 | s.charCodeAt(i++)
 				out.push(ba[b>>18&0x3f], ba[b>>12&0x3f], ba[b>>6&0x3f], ba[b&0x3f])
@@ -92,7 +95,7 @@
 		}
 
 		// base64_decode
-		w.atob = function(s) {
+		win.atob = function(s) {
 			for (var out=[],b,i=0,len=s.length,s=s.split("");i<len;) {
 				b = bm[s[i++]]<<18 | bm[s[i++]]<<12 | bm[s[i++]]<<6 | bm[s[i++]]
 				out.push(b>>16 & 0xff, b>>8 & 0xff, b & 0xff)
@@ -106,28 +109,13 @@
 
 	// XMLHttpRequest was unsupported in IE 5.x-6.x
 	// MSXML version 3.0 was the last version of MSXML to support version-independent ProgIDs.
-	I(w, "XMLHttpRequest", "return new ActiveXObject('MSXML2.XMLHTTP')");
-	//I(w, "XMLHttpRequest", "a=function(n){n='MSXML2.XMLHTTP'+n;try{x[y]=function(){return new ActiveXObject(n)};return new x[y]}catch(e){}};return a('.6.0')||a('')");
+	I(win, "XMLHttpRequest", "return new ActiveXObject('MSXML2.XMLHTTP')");
+	//I(win, "XMLHttpRequest", "a=function(n){n='MSXML2.XMLHTTP'+n;try{x[y]=function(){return new ActiveXObject(n)};return new x[y]}catch(e){}};return a('.6.0')||a('')");
 
 
-	//** xhr
-	w.xhr = function(method, url, cb, sync) {
-		var r = xhrs.shift() || new XMLHttpRequest()
-		r.open(method, url, !sync)
-		if (!sync) r.onreadystatechange = function() {
-			if (r.readyState == 4) {
-				cb && cb( r.responseText, r)
-				r.onreadystatechange = cb = Nop
-				xhrs.push(r)
-			}
-		}
-		return r
-	};
-	//*/
 
-
-	if (!w.JSON) {
-		w.JSON = {
+	if (!win.JSON) {
+		win.JSON = {
 			map: {"\b":"\\b","\f":"\\f","\n":"\\n","\r":"\\r","\t":"\\t",'"':'\\"',"\\":"\\\\"},
 			parse: new Function("t", "return new Function('return('+t+')')()"),
 			//parse: Fn("t->new Function('return('+t+')')()"),
@@ -135,8 +123,25 @@
 		}
 	}
 
+	/*
+	* ### Notes
+	*
+	* -   instanceof is not implemented in IE 5 MAC
+	* -   document.createDocumentFragment is unsupported in IE5.5
+	* -   IE 5.5 doesn't support the * collection (all elements) in document.getElementByTagName — it returns a collection with zero members
+	* -   Safari 2.0.2: 416     hasOwnProperty introduced October 31, 2005 (Mac OS X v10.4)
+	*         // Could be implemented
+	*         Object.prototype.hasOwnProperty = function(name, obj) {
+	*         	try {
+	*         		obj = this.constructor
+	*         		while (obj=obj.prototype) if (obj[name]===this[name]) return false
+	*         	} catch(e) {}
+	*         	return true
+	*         }
+	*/
 
-}(this)
+
+}(this, document)
 
 
 
