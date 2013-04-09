@@ -2,7 +2,7 @@
 
 
 /*
-* @version  0.0.2
+* @version  0.1.0
 * @author   Lauri Rooden - https://github.com/litejs/browser-upgrade-lite
 * @license  MIT License  - http://lauri.rooden.ee/mit-license.txt
 */
@@ -13,6 +13,7 @@
 	var a, b, c
 	, P = "prototype"
 	, A = Array[P]
+	, S = String[P]
 	, O = Object
 
 	function I(o, n, s, x) {
@@ -70,6 +71,7 @@
 	I(A, "some",        b+"return!0;return!1")
 
 
+	I(S, "trim", "return this.replace(/^\s+|\s+$/g, '')")
 
 	/*
 	* `Date.prototype.format` is implemented in `date-format-lite` module.
@@ -138,6 +140,7 @@
 	*         	} catch(e) {}
 	*         	return true
 	*         }
+	* -   If no !DOCTYPE is specified, IE8 renders the page in IE5 mode!
 	*/
 
 

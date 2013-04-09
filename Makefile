@@ -1,11 +1,12 @@
 
 
-FILE=$(shell sed '/"main":/!d;s///;s/[ ,"]//g' package.json)
 NAME=$(shell sed '/"name":/!d;s///;s/[ ,"]//g' package.json)
+FILE=$(shell sed '/"main":/!d;s///;s/[ ,"]//g' package.json)
+VERSION=$(shell sed '/"version":/!d;s///;s/[ ,"]//g' package.json)
 
 .PHONY: test
 
-all: compile update-readme test
+all: update-readme update-version compile test
 
 compile:
 	# Call Google Closure Compiler to produce a minified version of $(FILE)
@@ -22,7 +23,10 @@ update-readme:
 	        "$$(cat $(FILE) | wc -c) bytes" \
 	        "$(SIZE) bytes" \
 	        "$(SIZE_GZ) bytes"
-	@sed -i '/ bytes or .* gzipped/s/.*/($(SIZE) bytes or $(SIZE_GZ) bytes gzipped)/' README.md 
+	@sed -i '/ bytes or .* gzipped/s/.*/($(SIZE) bytes or $(SIZE_GZ) bytes gzipped)/' README.md
+
+update-version:
+	@sed -i '/@version/s/[^ ]*$$/$(VERSION)/' $(FILE)
 
 update-tests:
 	@printf "$$(cat test/html.tpl)" "$$(for file in test/*.liquid; do printf '\n\n\n<script type="text/liquid">\n%s\n</script>' "$$(cat $$file)"; done)" > test/test.html
