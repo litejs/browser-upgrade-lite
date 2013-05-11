@@ -6,7 +6,7 @@ VERSION=$(shell sed '/"version":/!d;s///;s/[ ,"]//g' package.json)
 
 .PHONY: test
 
-all: update-readme update-version compile test
+all: update-version compile test update-readme
 
 compile:
 	# Call Google Closure Compiler to produce a minified version of $(FILE)
@@ -23,7 +23,10 @@ update-readme:
 	        "$$(cat $(FILE) | wc -c) bytes" \
 	        "$(SIZE) bytes" \
 	        "$(SIZE_GZ) bytes"
-	@sed -i '/ bytes or .* gzipped/s/.*/($(SIZE) bytes or $(SIZE_GZ) bytes gzipped)/' README.md
+	@sed -i '/ bytes, .* gzipped/s/.*/($(SIZE) bytes, $(SIZE_GZ) bytes gzipped)/' README.md
+
+update-readme-from-source:
+	@sed -e '/\/\*/,/\*\//!d' -e 's,[ /]*\*[ /]\?,,' -e 's/^@/    @/' $(FILE) > README.md
 
 update-version:
 	@sed -i '/@version/s/[^ ]*$$/$(VERSION)/' $(FILE)
@@ -43,4 +46,9 @@ error:
 
 test:
 	@node test/run.js
+
+
+print: *.js
+	@echo $?
+	touch print
 

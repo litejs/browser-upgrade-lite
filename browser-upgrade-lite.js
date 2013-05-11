@@ -9,36 +9,34 @@
 
 
 
-!function(win, doc) {
+!function(win) {
 	var a, b, c
 	, P = "prototype"
 	, A = Array[P]
 	, S = String[P]
 	, O = Object
 
-	function I(o, n, s, x) {
-		o[n] = o[n] || new Function("x","y","return function(a,b,c,d){"+s+"}").apply(null, x||[o, n])
+	function I(obj, key, src) {
+		obj[key] = obj[key] || new Function("a","b","c","var P='prototype';"+src)
 	}
-
-	function Nop(){}
 
 	/*
 	* The HTML5 document.head DOM tree accessor
 	*/
 
-	doc.head = doc.head || doc.getElementsByTagName("head")[0]
+	//doc.head = doc.head || doc.getElementsByTagName("head")[0]
 
 	/*
 	* Function.prototype.bind from ECMAScript5
 	* Basic support:	Chrome 7 Firefox (Gecko) 4.0 (2) IE 9 Opera 11.60 Safari 5.1.4
 	*/
-	I(Function[P], "bind", "var t=this;b=x.call(arguments,1);c=function(){return t.apply(this instanceof c?this:a,b.concat.apply(b,arguments))};if(t[y])c[y]=t[y];return c", [A.slice, P])
+	I(Function[P], "bind", "var t=this;b=Array[P].slice.call(arguments,1);c=function(){return t.apply(this instanceof c?this:a,b.concat.apply(b,arguments))};if(t[P])c[P]=t[P];return c")
 
 
 	// Object extensions
 	// -----------------
 
-	I(O, "create" , "x[y]=a;return new x", [Nop, P])
+	I(O, "create" , "Nop[P]=a;return new Nop")
 	I(O, "keys"   , "c=[];for(b in a)a.hasOwnProperty(b)&&c.push(b);return c")
 
 
@@ -79,7 +77,9 @@
 
 	I(Date[P], "toISOString", "return this.format('isoUtcDateTime')")
 
-	//** base64
+	I(Date, "now", "return +new Date")
+
+	/** base64
 	if (!win.atob) {
 		var ba = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".split("")
 		, bm = {"=":0}
@@ -109,7 +109,7 @@
 
 	//*/
 
-	// XMLHttpRequest was unsupported in IE 5.x-6.x
+	// XMLHttpRequest was unsupported in IE 5-6
 	// MSXML version 3.0 was the last version of MSXML to support version-independent ProgIDs.
 	I(win, "XMLHttpRequest", "return new ActiveXObject('MSXML2.XMLHTTP')");
 	//I(win, "XMLHttpRequest", "a=function(n){n='MSXML2.XMLHTTP'+n;try{x[y]=function(){return new ActiveXObject(n)};return new x[y]}catch(e){}};return a('.6.0')||a('')");
@@ -140,11 +140,11 @@
 	*         	} catch(e) {}
 	*         	return true
 	*         }
-	* -   If no !DOCTYPE is specified, IE8 renders the page in IE5 mode!
+	* -   If no !DOCTYPE is specified, IE6-9 renders the page in IE5 mode!
 	*/
 
 
-}(this, document)
+}(this)
 
 
 
