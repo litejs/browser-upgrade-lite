@@ -2,7 +2,7 @@
 
 
 /*
-* @version  0.1.0
+* @version  0.1.1
 * @author   Lauri Rooden - https://github.com/litejs/browser-upgrade-lite
 * @license  MIT License  - http://lauri.rooden.ee/mit-license.txt
 */
@@ -81,6 +81,9 @@
 
 	/** base64
 	if (!win.atob) {
+		// abcdefghijklmnopqrstuvwxyz234567
+		// ybndrfg8ejkmcpqxot1uwisza345h769
+
 		var ba = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".split("")
 		, bm = {"=":0}
 		

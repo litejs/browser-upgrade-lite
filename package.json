@@ -1,9 +1,9 @@
 {
   "name": "browser-upgrade-lite",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "description": "Implement new features for old browsers",
-  "main": "browser-upgrade-lite.js",
+  "main": "index.js",
   "author": "Lauri Rooden <lauri@rooden.ee>",
   "repository": {
     "type": "git",
@@ -16,5 +16,18 @@
     "browser",
     "litejs"
   ],
+	"scripts": {
+		"build": "node node_modules/buildman/index.js --all",
+		"travis-test": "istanbul cover ./tests/run.js && (coveralls < coverage/lcov.info || exit 0)",
+		"test": "node tests/run.js"
+	},
+	"devDependencies": {
+		"buildman": "*",
+		"testman": "*"
+	},
+	"buildman": {
+		"min.js": "index.js",
+		"min.array.js": "array.js"
+	},
   "readmeFilename": "README.md"
 }

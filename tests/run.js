@@ -1,5 +1,97 @@
 
+var undef, res
+, arr = [1,2,3,4,2,5]
+, arr1 = [0, 1, 3, 5, 7, 3, 5, "3", true, undef]
+, arr2 = [0, 1, 2, 3]
 
+require("../array")
+
+require("testman").
+describe("Array").
+	it ( "should have correct native indexOf").
+	it ( "should have correct indexOf").
+		equal( arr1._indexOf(0),        0).
+		equal( arr1._indexOf(0, 0),     0).
+		equal( arr1._indexOf(0, 1),    -1).
+		equal( arr1._indexOf(1),        1).
+		equal( arr1._indexOf(1, 0),     1).
+		equal( arr1._indexOf(1, 1),     1).
+		equal( arr1._indexOf(1, 2),    -1).
+		equal( arr1._indexOf(3),        2).
+		equal( arr1._indexOf(5),        3).
+		equal( arr1._indexOf(7),        4).
+		equal( arr1._indexOf("3"),      7).
+		equal( arr1._indexOf(true),     8).
+		equal( arr1._indexOf(undef),    9).
+		equal( arr1._indexOf(undef, 9), 9).
+		equal( arr1._indexOf(8),       -1).
+		equal( arr1._indexOf("7"),     -1).
+		equal( arr1._indexOf("8"),     -1).
+		equal( arr1._indexOf("true"),  -1).
+		equal( arr1._indexOf(false),   -1).
+		equal( arr1._indexOf(null),    -1).
+	it ( "should have lastIndexOf").
+		equal( arr1._lastIndexOf(0), 0).
+		equal( arr1._lastIndexOf(1), 1).
+		equal( arr1._lastIndexOf(3), 5).
+		equal( arr1._lastIndexOf(5), 6).
+		equal( arr1._lastIndexOf(7), 4).
+		equal( arr1._lastIndexOf("3"), 7).
+		equal( arr1._lastIndexOf(true), 8).
+		equal( arr1._lastIndexOf(undef), 9).
+		equal( arr1._lastIndexOf(8), -1).
+		equal( arr1._lastIndexOf("7"), -1).
+		equal( arr1._lastIndexOf("8"), -1).
+		equal( arr1._lastIndexOf("true"), -1).
+		equal( arr1._lastIndexOf(false), -1).
+		equal( arr1._lastIndexOf(null), -1).
+	it ( "should have reduce").
+		equal( arr2._reduce(sum), 6 ).
+		equal( arr2._reduce(sum, 0), 6 ).
+		equal( arr2._reduce(sum, 1), 7 ).
+	it ( "should have reduceRight").
+		equal( arr2._reduceRight(sum), 6 ).
+		equal( arr2._reduceRight(sum, 0), 6 ).
+		equal( arr2._reduceRight(sum, 1), 7 ).
+	
+	it ( "should have every").
+		equal( [2, 4, 6, 8]._every(function(i){return !(i%2)}), true).
+		equal( [2, 5, 6, 8]._every(function(i){return !(i%2)}), false).
+
+	it ( "should have some").
+		equal( [2, 4, 6, 8]._some(function(i){return i==4}) , true ).
+		equal( [2, 4, 6, 8]._some(function(i){return i==5}), false ).
+
+	it ( "should have filter").
+		run(function(){
+			res = arr._filter(function(val, key){return val == 2 || key == 3});
+		}).
+		equal( res.join(), "2,4,2" ).
+
+	it ( "should have filter").
+		run(function(){
+			res = [];
+			arr._forEach(function(val, key){res.push(val+key)});
+		}).
+		equal( res.join(), "1,3,5,7,6,10" ).
+
+	it ( "should have filter").
+		run(function(){
+			res = arr._map(function(val, key){return (val+key)});
+		}).
+		equal(res.join(), "1,3,5,7,6,10").
+
+
+
+
+describe("String").
+done()
+
+
+
+function sum(a, b){
+	return a + b
+}
 
 /** Tests for String
 !function(){
@@ -23,91 +115,6 @@ test.done();
 //*/
 
 
-
-
-/** Tests for Array
-!function(){
-var test = new TestCase("Array")
-, arr = [1,2,3,4,2,5]
-, res
-
-res = arr.filter(function(val, key){return val == 2 || key == 3});
-test.compare(
-res.length, 3
-, res.join(), "2,4,2"
-, "Array.filter()");
-
-res = [];
-arr.forEach(function(val, key){res.push(val+key)});
-
-test.compare(
-res.length, 6
-, res.join(), "1,3,5,7,6,10"
-, "Array.foreach()");
-
-res = arr.map(function(val, key){return (val+key)});
-
-test.compare(
-res.length, 6
-, res.join(), "1,3,5,7,6,10"
-, "Array.map()");
-
-test.compare(
-arr.indexOf(1)   , 0
-, arr.indexOf(5)   , 5
-, arr.indexOf(2)   , 1
-, arr.indexOf(2,1) , 1
-, arr.indexOf(2,2) , 4
-, arr.indexOf(2,5) , -1
-, arr.indexOf(6)   , -1
-, "Array.indexOf()");
-
-test.compare(
-arr.lastIndexOf(1)    , 0
-, arr.lastIndexOf(5)    , 5
-, arr.lastIndexOf(2)    , 4
-, arr.lastIndexOf(2,4)  , 4
-, arr.lastIndexOf(2,3)  , 1
-, arr.lastIndexOf(2,-1) , 4
-, arr.lastIndexOf(2,-3) , 1
-, arr.lastIndexOf(6)    , -1
-, "Array.lastIndexOf()");
-
-test.compare(
-[2, 4, 6, 8].every(function(i){return !(i%2)})
-, true
-, [2, 5, 6, 8].every(function(i){return !(i%2)})
-, false
-, "Array.every()");
-
-test.compare(
-[2, 4, 6, 8].some(function(i){return i==4})
-, true
-, [2, 4, 6, 8].some(function(i){return i==5})
-, false
-, "Array.some()");
-
-
-test.compare(
-[0, 1, 2, 3].reduce(function(a, b){ return a + b; }), 6
-, [0,1,2,3,4].reduce(function(previousValue, currentValue, index, array){return previousValue + currentValue;}, 10), 20
-, "Array.reduce()");
-
-
-test.compare(
-Array.isArray([1])
-, true
-, Array.isArray(1)
-, false
-, Array.isArray(arguments)
-, false
-, Array.isArray({a:1})
-, false
-, "Array.isArray");
-
-test.done();
-}()
-//*/
 
 
 
