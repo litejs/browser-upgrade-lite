@@ -1,12 +1,12 @@
 
 [1]: https://raw.github.com/litejs/browser-upgrade-lite/master/min.js
-[2]: https://raw.github.com/litejs/browser-upgrade-lite/master/browser-upgrade-lite.js
+[2]: https://raw.github.com/litejs/browser-upgrade-lite/master/index.js
 
 
 Browser upgrade
 ===============
 
-Implement new features for old browsers.
+Implement ES5 for older browsers.
 Download [compressed][1] 
 (2106 bytes, 1007 bytes gzipped)
 or [uncompressed][2] source.
