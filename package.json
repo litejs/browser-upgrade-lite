@@ -1,8 +1,8 @@
 {
   "name": "browser-upgrade-lite",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
-  "description": "Implement new features for old browsers",
+  "description": "Implement EcmaScript 5 methods for older browsers",
   "main": "index.js",
   "author": "Lauri Rooden <lauri@rooden.ee>",
   "repository": {
@@ -27,6 +27,7 @@
 	},
 	"buildman": {
 		"min.js": "index.js",
+		"min.base64.js": "base64.js",
 		"min.array.js": "array.js"
 	},
   "readmeFilename": "README.md"

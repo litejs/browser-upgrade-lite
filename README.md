@@ -6,7 +6,7 @@
 Browser upgrade
 ===============
 
-Implement ES5 for older browsers.
+Implement EcmaScript 5 methods for older browsers.
 Download [compressed][1] 
 (2106 bytes, 1007 bytes gzipped)
 or [uncompressed][2] source.
@@ -28,7 +28,7 @@ or [uncompressed][2] source.
 - Array.prototype.filter
 - Array.prototype.some
 - Date.prototype.toISOString
-- Date: now
+- Date.now
 - String.prototype.trim
 - JSON
 - atob/btoa (base64) // Disabled by default

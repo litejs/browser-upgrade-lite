@@ -2,7 +2,7 @@
 
 
 /*
-* @version  0.1.1
+* @version  0.1.2
 * @author   Lauri Rooden - https://github.com/litejs/browser-upgrade-lite
 * @license  MIT License  - http://lauri.rooden.ee/mit-license.txt
 */
@@ -78,46 +78,6 @@
 	I(Date[P], "toISOString", "return this.format('isoUtcDateTime')")
 
 	I(Date, "now", "return+new Date")
-
-	/** base64
-	if (!win.atob) {
-		// abcdefghijklmnopqrstuvwxyz234567
-		// ybndrfg8ejkmcpqxot1uwisza345h769
-
-		var ba = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".split("")
-		, bm = {"=":0}
-		
-		for (i = 64; bm[ba[--i]]=i;);
-
-		// base64_encode
-		win.btoa = function(s) {
-			for (var out=[],b,i=0,len=s.length;i<len;) {
-				b = s.charCodeAt(i++)<<16 | s.charCodeAt(i++)<<8 | s.charCodeAt(i++)
-				out.push(ba[b>>18&0x3f], ba[b>>12&0x3f], ba[b>>6&0x3f], ba[b&0x3f])
-			}
-			if (len%=3) out.splice(len-3, 2, len==1?"==":"=")
-			return out.join("")
-		}
-
-		// base64_decode
-		win.atob = function(s) {
-			for (var out=[],b,i=0,len=s.length,s=s.split("");i<len;) {
-				b = bm[s[i++]]<<18 | bm[s[i++]]<<12 | bm[s[i++]]<<6 | bm[s[i++]]
-				out.push(b>>16 & 0xff, b>>8 & 0xff, b & 0xff)
-			}
-			if (s[len-1] == "=") out.length -= s[len-2] == "=" ? 2 : 1
-			return String.fromCharCode.apply(null, out)
-		}
-	}
-
-	//*/
-
-	// XMLHttpRequest was unsupported in IE 5-6
-	// MSXML version 3.0 was the last version of MSXML to support version-independent ProgIDs.
-	I(win, "XMLHttpRequest", "return new ActiveXObject('MSXML2.XMLHTTP')");
-	//I(win, "XMLHttpRequest", "a=function(n){n='MSXML2.XMLHTTP'+n;try{x[y]=function(){return new ActiveXObject(n)};return new x[y]}catch(e){}};return a('.6.0')||a('')");
-
-
 
 	if (!win.JSON) {
 		win.JSON = {
