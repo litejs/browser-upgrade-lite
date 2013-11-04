@@ -2,7 +2,7 @@
 
 
 /*
-* @version  0.1.2
+* @version  0.1.3
 * @author   Lauri Rooden - https://github.com/litejs/browser-upgrade-lite
 * @license  MIT License  - http://lauri.rooden.ee/mit-license.txt
 */
@@ -30,7 +30,7 @@
 	* Function.prototype.bind from ECMAScript5
 	* Basic support:	Chrome 7 Firefox (Gecko) 4.0 (2) IE 9 Opera 11.60 Safari 5.1.4
 	*/
-	I(Function[P], "bind", "var t=this;b=[].slice.call(arguments,1);c=function(){return t.apply(this instanceof c?this:a,b.concat.apply(b,arguments))};c[P]=t[P];return c")
+	I(Function[P], "bind", "var t=this;b=[].slice.call(arguments,1);c=function(){return t.apply(this instanceof c?this:a,b.concat.apply(b,arguments))};if(t[P])c[P]=t[P];return c")
 
 
 	// Object extensions
