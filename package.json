@@ -1,6 +1,6 @@
 {
   "name": "browser-upgrade-lite",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "license": "MIT",
   "description": "Implement EcmaScript 5 methods for older browsers",
   "main": "index.js",

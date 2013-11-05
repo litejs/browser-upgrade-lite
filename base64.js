@@ -1,16 +1,26 @@
 
-	/** base64
-	if (!win.atob) {
+
+
+/*
+* @version  0.1.4
+* @author   Lauri Rooden - https://github.com/litejs/browser-upgrade-lite
+* @license  MIT License  - http://lauri.rooden.ee/mit-license.txt
+*/
+
+
+
+!function(root){
+	if (!root.atob) {
 		// abcdefghijklmnopqrstuvwxyz234567
 		// ybndrfg8ejkmcpqxot1uwisza345h769
 
-		var ba = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".split("")
-		, bm = {"=":0}
 		
-		for (i = 64; bm[ba[--i]]=i;);
+		for (var i = 64,
+			 ba = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".split(""),
+		 	 bm = {"=":0} ; bm[ba[--i]]=i;){};
 
 		// base64_encode
-		win.btoa = function(s) {
+		root.btoa = function(s) {
 			for (var out=[],b,i=0,len=s.length;i<len;) {
 				b = s.charCodeAt(i++)<<16 | s.charCodeAt(i++)<<8 | s.charCodeAt(i++)
 				out.push(ba[b>>18&0x3f], ba[b>>12&0x3f], ba[b>>6&0x3f], ba[b&0x3f])
@@ -20,7 +30,7 @@
 		}
 
 		// base64_decode
-		win.atob = function(s) {
+		root.atob = function(s) {
 			for (var out=[],b,i=0,len=s.length,s=s.split("");i<len;) {
 				b = bm[s[i++]]<<18 | bm[s[i++]]<<12 | bm[s[i++]]<<6 | bm[s[i++]]
 				out.push(b>>16 & 0xff, b>>8 & 0xff, b & 0xff)
@@ -30,4 +40,4 @@
 		}
 	}
 
-	//*/
+}(this)

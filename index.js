@@ -2,7 +2,7 @@
 
 
 /*
-* @version  0.1.3
+* @version  0.1.4
 * @author   Lauri Rooden - https://github.com/litejs/browser-upgrade-lite
 * @license  MIT License  - http://lauri.rooden.ee/mit-license.txt
 */
@@ -17,7 +17,7 @@
 	, O = Object
 
 	function I(obj, key, src) {
-		obj[key] = obj[key] || new Function("a","b","c","var P='prototype';"+src)
+		obj[key] = obj[key] || new Function("a,b,c","var P='prototype';"+src)
 	}
 
 	/*
