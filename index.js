@@ -2,9 +2,11 @@
 
 
 /*
-* @version  0.1.4
-* @author   Lauri Rooden - https://github.com/litejs/browser-upgrade-lite
-* @license  MIT License  - http://lauri.rooden.ee/mit-license.txt
+* @version    0.1.5
+* @date       2014-01-19
+* @stability  2 - Unstable
+* @author     Lauri Rooden <lauri@rooden.ee>
+* @license    MIT License
 */
 
 
@@ -15,9 +17,14 @@
 	, A = Array[P]
 	, S = String[P]
 	, O = Object
+	, _escape = escape
+	, patched = win._patched = []
 
-	function I(obj, key, src) {
-		obj[key] = obj[key] || new Function("a,b,c","var P='prototype';"+src)
+	function I(obj, key, src, force) {
+		if (force || !obj[key]) {
+			obj[key] = new Function("a,b,c","var P='prototype';"+src)
+			patched.push(key)
+		}
 	}
 
 	/*
@@ -80,11 +87,20 @@
 	I(Date, "now", "return+new Date")
 
 	if (!win.JSON) {
+		patched.push("JSON")
 		win.JSON = {
 			map: {"\b":"\\b","\f":"\\f","\n":"\\n","\r":"\\r","\t":"\\t",'"':'\\"',"\\":"\\\\"},
 			parse: new Function("t", "return new Function('return('+t+')')()"),
 			//parse: Fn("t->new Function('return('+t+')')()"),
 			stringify: new Function("o", "if(o==null)return'null';if(o instanceof Date)return'\"'+o.toISOString()+'\"';var i,s=[],c;if(Array.isArray(o)){for(i=o.length;i--;s[i]=JSON.stringify(o[i]));return'['+s.join()+']'}c=typeof o;if(c=='string'){for(i=o.length;c=o.charAt(--i);s[i]=JSON.map[c]||(c<' '?'\\\\u00'+((c=c.charCodeAt(0))|4)+(c%16).toString(16):c));return'\"'+s.join('')+'\"'}if(c=='object'){for(i in o)o.hasOwnProperty(i)&&s.push(JSON.stringify(i)+':'+JSON.stringify(o[i]));return'{'+s.join()+'}'}return''+o")
+		}
+	}
+
+	// Ignore FF3 escape second non-standard argument
+	if (_escape.length > 1) {
+		patched.push("escape")
+		win.escape = function(s) {
+			return _escape(s)
 		}
 	}
 

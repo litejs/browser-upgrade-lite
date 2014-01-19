@@ -4,9 +4,9 @@
 	}
 
 	// array.indexOf(searchElement[, fromIndex])
-	add("_indexOf",     pre+"for(i+=b|0;++i<l"+suf)
+	add("indexOf",     pre+"for(i+=b|0;++i<l"+suf)
 	// array.lastIndexOf(searchElement[, fromIndex])
-	add("_lastIndexOf", pre+"i=(b|0)||l;i>--l&&(i=l)||i<0&&(i+=l);for(++i;i--"+suf)
+	add("lastIndexOf", pre+"i=(b|0)||l;i>--l&&(i=l)||i<0&&(i+=l);for(++i;i--"+suf)
 
 	suf = ";)c=a(c,t[i],i,t)"
 
@@ -19,22 +19,22 @@
 	mid  = "a.call(b,t[i],i,t)"
 	
 	// array.forEach(callback[, thisArg])
-	add("_forEach",     pre+mid)
+	add("forEach",     pre+mid)
 	
 	// array.map(callback[, thisArg])
-	add("_map",         pre+"c[i]="+mid)
+	add("map",         pre+"c[i]="+mid)
 
 	// array.every(callback[, thisObject])
-	add("_every",       pre+"if(!"+mid+")return!1;c=!0")
+	add("every",       pre+"if(!"+mid+")return!1;c=!0")
 
 	pre += "if("+mid+")"
 	// array.some(callback[, thisObject])
-	add("_some",        pre+"return!0;c=!1")
+	add("some",        pre+"return!0;c=!1")
 	
 	// array.filter(callback[, thisObject])
-	add("_filter",      pre+"c.push(t[i])")
+	add("filter",      pre+"c.push(t[i])")
 }(Array.prototype
-, "_reduce"
+, "reduce"
 , "var t=this,l=t.length,i=-1;"
 , ";)if(t[i]===a)return i;c=-1"
 , "c=arguments.length>1?b:t["

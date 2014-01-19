@@ -1,83 +1,93 @@
 
+var mod = require("../")
+
 var undef, res
 , arr = [1,2,3,4,2,5]
 , arr1 = [0, 1, 3, 5, 7, 3, 5, "3", true, undef]
 , arr2 = [0, 1, 2, 3]
 
-require("../array")
+, obj = {a:1,b:"2","cde":[1,"2",null,false,true,void 0,"kala"]}
+, expected = '{"a":1,"b":"2","cde":[1,"2",null,false,true,null,"kala"]}'
+, obj_keys = Object.keys(obj)
+
+, bind_test = function(var1,var2){return var1+this.b+var2}
+, fun = bind_test.bind(obj,"res1")
+
+
+console.log("# Patched: " + mod._patched.join() )
 
 require("testman").
 describe("Array").
 	it ( "should have correct native indexOf").
 	it ( "should have correct indexOf").
-		equal( arr1._indexOf(0),        0).
-		equal( arr1._indexOf(0, 0),     0).
-		equal( arr1._indexOf(0, 1),    -1).
-		equal( arr1._indexOf(1),        1).
-		equal( arr1._indexOf(1, 0),     1).
-		equal( arr1._indexOf(1, 1),     1).
-		equal( arr1._indexOf(1, 2),    -1).
-		equal( arr1._indexOf(3),        2).
-		equal( arr1._indexOf(5),        3).
-		equal( arr1._indexOf(7),        4).
-		equal( arr1._indexOf("3"),      7).
-		equal( arr1._indexOf(true),     8).
-		equal( arr1._indexOf(undef),    9).
-		equal( arr1._indexOf(undef, 9), 9).
-		equal( arr1._indexOf(8),       -1).
-		equal( arr1._indexOf("7"),     -1).
-		equal( arr1._indexOf("8"),     -1).
-		equal( arr1._indexOf("true"),  -1).
-		equal( arr1._indexOf(false),   -1).
-		equal( arr1._indexOf(null),    -1).
+		equal( arr1.indexOf(0),        0).
+		equal( arr1.indexOf(0, 0),     0).
+		equal( arr1.indexOf(0, 1),    -1).
+		equal( arr1.indexOf(1),        1).
+		equal( arr1.indexOf(1, 0),     1).
+		equal( arr1.indexOf(1, 1),     1).
+		equal( arr1.indexOf(1, 2),    -1).
+		equal( arr1.indexOf(3),        2).
+		equal( arr1.indexOf(5),        3).
+		equal( arr1.indexOf(7),        4).
+		equal( arr1.indexOf("3"),      7).
+		equal( arr1.indexOf(true),     8).
+		equal( arr1.indexOf(undef),    9).
+		equal( arr1.indexOf(undef, 9), 9).
+		equal( arr1.indexOf(8),       -1).
+		equal( arr1.indexOf("7"),     -1).
+		equal( arr1.indexOf("8"),     -1).
+		equal( arr1.indexOf("true"),  -1).
+		equal( arr1.indexOf(false),   -1).
+		equal( arr1.indexOf(null),    -1).
 	it ( "should have lastIndexOf").
-		equal( arr1._lastIndexOf(0), 0).
-		equal( arr1._lastIndexOf(1), 1).
-		equal( arr1._lastIndexOf(3), 5).
-		equal( arr1._lastIndexOf(5), 6).
-		equal( arr1._lastIndexOf(7), 4).
-		equal( arr1._lastIndexOf("3"), 7).
-		equal( arr1._lastIndexOf(true), 8).
-		equal( arr1._lastIndexOf(undef), 9).
-		equal( arr1._lastIndexOf(8), -1).
-		equal( arr1._lastIndexOf("7"), -1).
-		equal( arr1._lastIndexOf("8"), -1).
-		equal( arr1._lastIndexOf("true"), -1).
-		equal( arr1._lastIndexOf(false), -1).
-		equal( arr1._lastIndexOf(null), -1).
+		equal( arr1.lastIndexOf(0), 0).
+		equal( arr1.lastIndexOf(1), 1).
+		equal( arr1.lastIndexOf(3), 5).
+		equal( arr1.lastIndexOf(5), 6).
+		equal( arr1.lastIndexOf(7), 4).
+		equal( arr1.lastIndexOf("3"), 7).
+		equal( arr1.lastIndexOf(true), 8).
+		equal( arr1.lastIndexOf(undef), 9).
+		equal( arr1.lastIndexOf(8), -1).
+		equal( arr1.lastIndexOf("7"), -1).
+		equal( arr1.lastIndexOf("8"), -1).
+		equal( arr1.lastIndexOf("true"), -1).
+		equal( arr1.lastIndexOf(false), -1).
+		equal( arr1.lastIndexOf(null), -1).
 	it ( "should have reduce").
-		equal( arr2._reduce(sum), 6 ).
-		equal( arr2._reduce(sum, 0), 6 ).
-		equal( arr2._reduce(sum, 1), 7 ).
+		equal( arr2.reduce(sum), 6 ).
+		equal( arr2.reduce(sum, 0), 6 ).
+		equal( arr2.reduce(sum, 1), 7 ).
 	it ( "should have reduceRight").
-		equal( arr2._reduceRight(sum), 6 ).
-		equal( arr2._reduceRight(sum, 0), 6 ).
-		equal( arr2._reduceRight(sum, 1), 7 ).
+		equal( arr2.reduceRight(sum), 6 ).
+		equal( arr2.reduceRight(sum, 0), 6 ).
+		equal( arr2.reduceRight(sum, 1), 7 ).
 	
 	it ( "should have every").
-		equal( [2, 4, 6, 8]._every(function(i){return !(i%2)}), true).
-		equal( [2, 5, 6, 8]._every(function(i){return !(i%2)}), false).
+		equal( [2, 4, 6, 8].every(function(i){return !(i%2)}), true).
+		equal( [2, 5, 6, 8].every(function(i){return !(i%2)}), false).
 
 	it ( "should have some").
-		equal( [2, 4, 6, 8]._some(function(i){return i==4}) , true ).
-		equal( [2, 4, 6, 8]._some(function(i){return i==5}), false ).
+		equal( [2, 4, 6, 8].some(function(i){return i==4}) , true ).
+		equal( [2, 4, 6, 8].some(function(i){return i==5}), false ).
 
 	it ( "should have filter").
 		run(function(){
-			res = arr._filter(function(val, key){return val == 2 || key == 3});
+			res = arr.filter(function(val, key){return val == 2 || key == 3});
 		}).
 		equal( res.join(), "2,4,2" ).
 
 	it ( "should have filter").
 		run(function(){
 			res = [];
-			arr._forEach(function(val, key){res.push(val+key)});
+			arr.forEach(function(val, key){res.push(val+key)});
 		}).
 		equal( res.join(), "1,3,5,7,6,10" ).
 
 	it ( "should have filter").
 		run(function(){
-			res = arr._map(function(val, key){return (val+key)});
+			res = arr.map(function(val, key){return (val+key)});
 		}).
 		equal(res.join(), "1,3,5,7,6,10").
 
@@ -85,6 +95,31 @@ describe("Array").
 
 
 describe("String").
+	it ( "should have trim" ).
+		equal("  test  ".trim() , "test").
+		equal(" \n te st \n ".trim() , "te st").
+		equal("te \n st".trim() , "te \n st").
+	it ( "should have correct slice ").
+		equal("'hello world'".slice(1,-1), "hello world").
+
+			
+			
+describe("Native methods").
+	it ( "should have Object.keys()" ).
+		equal(obj_keys.join(), "a,b,cde").
+	it ( "should have JSON" ).
+		equal(JSON.stringify( obj ) , expected).
+		equal(JSON.stringify( JSON.parse( expected ) ) , expected).
+		equal(JSON.stringify( obj_keys ) , '["a","b","cde"]').
+	it ( "should have hasOwnProperty" ).
+		equal("hasOwnProperty" in obj, true).
+		equal(obj.hasOwnProperty("a"), true).
+		equal(obj.hasOwnProperty("hasOwnProperty"), false).
+		equal(obj.hasOwnProperty("c"), false).
+	it ( "should have bind" ).
+		equal(fun("res2") , "res12res2").
+
+	
 done()
 
 
@@ -92,76 +127,6 @@ done()
 function sum(a, b){
 	return a + b
 }
-
-/** Tests for String
-!function(){
-var test = new TestCase("String");
-test.compare(
-"  test  ".trim()
-, "test"
-, " \n te st \n ".trim()
-, "te st"
-, "te \n st".trim()
-, "te \n st"
-, "String.trim()");
-
-test.compare(
-"'hello world'".slice(1,-1)
-, "hello world"
-, "String.slice()");
-
-test.done();
-}()
-//*/
-
-
-
-
-
-/** Tests
-!function(){
-var test = new TestCase("Native methods");
-
-var obj = {a:1,b:"2","cde":[1,"2",null,false,true,void 0,"kala"]}
-, expected = '{"a":1,"b":"2","cde":[1,"2",null,false,true,null,"kala"]}'
-, arr = Object.keys(obj)
-, res
-
-test.compare(
-arr.length
-, 3
-, arr.join()
-, "a,b,cde"
-, "Object.keys()");
-
-test.compare(
-JSON.stringify( obj )
-, expected
-, JSON.stringify( JSON.parse( expected ) )
-, expected
-, JSON.stringify( arr )
-, '["a","b","cde"]'
-, "JSON");
-
-test.compare(
-"hasOwnProperty" in obj, true
-, obj.hasOwnProperty("a"), true
-, obj.hasOwnProperty("hasOwnProperty"), false
-, obj.hasOwnProperty("c"), false
-, "Object.hasOwnProperty()");
-
-var bind_test = function(var1,var2){return var1+this.b+var2}
-, fun = bind_test.bind(obj,"res1")
-
-test.compare(
-fun("res2")
-, "res12res2"
-, "Function.bind()");
-
-test.done()
-}()
-//*/
-
 
 
 /** Tests for Date

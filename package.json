@@ -1,10 +1,21 @@
 {
   "name": "browser-upgrade-lite",
-  "version": "0.1.4",
+  "version": "0.1.5",
+  "stability": 2,
   "license": "MIT",
-  "description": "Implement EcmaScript 5 methods for older browsers",
-  "main": "index.js",
   "author": "Lauri Rooden <lauri@rooden.ee>",
+  "description": "Implement EcmaScript 5 methods for older browsers",
+  "keywords": [
+    "browser",
+    "litejs"
+  ],
+  "main": "index.js",
+  "readmeFilename": "README.md",
+  "scripts": {
+    "build": "node node_modules/buildman/index.js --all",
+    "travis-test": "istanbul cover ./tests/run.js && (coveralls < coverage/lcov.info || exit 0)",
+    "test": "node tests/run.js"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/litejs/browser-upgrade-lite.git"
@@ -12,23 +23,61 @@
   "bugs": {
     "url": "https://github.com/litejs/browser-upgrade-lite/issues"
   },
-  "keywords": [
-    "browser",
-    "litejs"
-  ],
-	"scripts": {
-		"build": "node node_modules/buildman/index.js --all",
-		"travis-test": "istanbul cover ./tests/run.js && (coveralls < coverage/lcov.info || exit 0)",
-		"test": "node tests/run.js"
-	},
-	"devDependencies": {
-		"buildman": "*",
-		"testman": "*"
-	},
-	"buildman": {
-		"min.js": "index.js",
-		"min.base64.js": "base64.js",
-		"min.array.js": "array.js"
-	},
-  "readmeFilename": "README.md"
+  "devDependencies": {
+    "buildman": "*",
+    "testman": "*"
+  },
+  "buildman": {
+    "min.js": "index.js",
+    "min.base64.js": "base64.js",
+    "min.array.js": "array.js"
+  },
+  "testling": {
+    "files": "tests/run.js",
+    "browsers": {
+      "ie": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "ff": [
+        3,
+        3.6,
+        4,
+        18,
+        19,
+        "nightly"
+      ],
+      "chrome": [
+        4,
+        10,
+        20,
+        24,
+        25,
+        "canary"
+      ],
+      "safari": [
+        5.1,
+        6
+      ],
+      "opera": [
+        10,
+        11,
+        "11.6",
+        12,
+        "next"
+      ],
+      "android-browser": [
+        4.2
+      ],
+      "iphone": [
+        6
+      ],
+      "ipad": [
+        6
+      ]
+    }
+  }
 }

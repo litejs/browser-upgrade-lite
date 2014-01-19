@@ -1,6 +1,8 @@
 
 [1]: https://raw.github.com/litejs/browser-upgrade-lite/master/min.js
 [2]: https://raw.github.com/litejs/browser-upgrade-lite/master/index.js
+[7]: https://ci.testling.com/litejs/browser-upgrade-lite.png
+[8]: https://ci.testling.com/litejs/browser-upgrade-lite
 
 
 Browser upgrade
@@ -33,6 +35,11 @@ or [uncompressed][2] source.
 - JSON
 - atob/btoa (base64) // Disabled by default
 
+
+Browser Support
+---------------
+
+[![browser support][7]][8]
 
 
 ### Licence
