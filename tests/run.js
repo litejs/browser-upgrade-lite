@@ -1,3 +1,7 @@
+try{
+	global.window = global
+}catch(e){}
+
 
 var mod = require("../")
 
@@ -14,7 +18,7 @@ var undef, res
 , fun = bind_test.bind(obj,"res1")
 
 
-console.log("# Patched: " + mod._patched.join() )
+console.log("# Patched: " + _patched.join() )
 
 require("testman").
 describe("Array").
