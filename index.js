@@ -76,7 +76,7 @@
 	I(A, "some",        b+"return!0;return!1")
 
 
-	I(S, "trim", "return this.replace(/^\s+|\s+$/g, '')")
+	I(S, "trim", "return this.replace(/^\\s+|\\s+$/g, '')")
 
 	/*
 	* `Date.prototype.format` is implemented in `date-format-lite` module.
