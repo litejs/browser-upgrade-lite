@@ -4,7 +4,7 @@
 [npm-package]: https://npmjs.org/package/browser-upgrade-lite
 
 
-    @version    0.1.6
+    @version    0.1.7
     @date       2014-01-20
     @stability  2 - Unstable
 
@@ -43,6 +43,24 @@ Browser Support
 ---------------
 
 [![browser support][7]][8]
+
+-   If no !DOCTYPE is specified, IE6-9 renders the page in IE5 mode!
+-   document.createDocumentFragment is unsupported in IE5.5
+-   IE 5.5 doesn't support the * collection (all elements) in 
+    document.getElementByTagName — it returns a collection with zero members
+-   instanceof is not implemented in IE 5 MAC
+-   Safari 2.0.2: 416     hasOwnProperty introduced October 31, 2005 (Mac OS X v10.4)
+        // Could be implemented
+        ```javascript
+        Object.prototype.hasOwnProperty = function(name, obj) {
+        	try {
+        		obj = this.constructor
+        		while (obj=obj.prototype) if (obj[name]===this[name]) return false
+        	} catch(e) {}
+        	return true
+        }
+        ```
+
 
 
 External links
