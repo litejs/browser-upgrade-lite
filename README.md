@@ -50,16 +50,16 @@ Browser Support
     document.getElementByTagName — it returns a collection with zero members
 -   instanceof is not implemented in IE 5 MAC
 -   Safari 2.0.2: 416     hasOwnProperty introduced October 31, 2005 (Mac OS X v10.4)
-        // Could be implemented
-        ```javascript
-        Object.prototype.hasOwnProperty = function(name, obj) {
-        	try {
-        		obj = this.constructor
-        		while (obj=obj.prototype) if (obj[name]===this[name]) return false
-        	} catch(e) {}
-        	return true
-        }
-        ```
+    ```javascript
+    // Polyfill
+    Object.prototype.hasOwnProperty = function(name, obj) {
+    	try {
+    		obj = this.constructor
+    		while (obj=obj.prototype) if (obj[name]===this[name]) return false
+    	} catch(e) {}
+    	return true
+    }
+    ```
 
 
 
