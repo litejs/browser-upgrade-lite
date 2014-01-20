@@ -2,7 +2,7 @@
 
 
 /*
-* @version    0.1.5
+* @version    0.1.6
 * @date       2014-01-20
 * @stability  2 - Unstable
 * @author     Lauri Rooden <lauri@rooden.ee>
@@ -97,7 +97,8 @@
 	}
 
 	// Ignore FF3 escape second non-standard argument
-	if (_escape.length > 1) {
+	// https://bugzilla.mozilla.org/show_bug.cgi?id=666448
+	if (_escape("a",0) != "a") {
 		patched.push("escape")
 		win.escape = function(s) {
 			return _escape(s)

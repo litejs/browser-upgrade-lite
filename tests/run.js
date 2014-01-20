@@ -122,6 +122,8 @@ describe("Native methods").
 		equal(obj.hasOwnProperty("c"), false).
 	it ( "should have bind" ).
 		equal(fun("res2") , "res12res2").
+	it ( "should have correct escape" ).
+		equal(escape("foo", NaN), "foo").
 
 	
 done()
