@@ -2,9 +2,11 @@
 
 
 /*
-* @version  0.1.4
-* @author   Lauri Rooden - https://github.com/litejs/browser-upgrade-lite
-* @license  MIT License  - http://lauri.rooden.ee/mit-license.txt
+* @version    0.1.5
+* @date       2014-01-20
+* @stability  2 - Unstable
+* @author     Lauri Rooden <lauri@rooden.ee>
+* @license    MIT License
 */
 
 

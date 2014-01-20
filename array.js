@@ -1,3 +1,16 @@
+
+
+
+/*
+* @version    0.1.5
+* @date       2014-01-20
+* @stability  2 - Unstable
+* @author     Lauri Rooden <lauri@rooden.ee>
+* @license    MIT License
+*/
+
+
+
 !function(A, reduce, pre, suf, mid) {
 	function add(key, src) {
 		A[key] = A[key] || new Function("a,b,c", src+";return c")

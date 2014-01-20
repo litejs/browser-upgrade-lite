@@ -3,7 +3,7 @@
 
 /*
 * @version    0.1.5
-* @date       2014-01-19
+* @date       2014-01-20
 * @stability  2 - Unstable
 * @author     Lauri Rooden <lauri@rooden.ee>
 * @license    MIT License

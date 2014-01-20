@@ -1,20 +1,23 @@
 
-[1]: https://raw.github.com/litejs/browser-upgrade-lite/master/min.js
-[2]: https://raw.github.com/litejs/browser-upgrade-lite/master/index.js
 [7]: https://ci.testling.com/litejs/browser-upgrade-lite.png
 [8]: https://ci.testling.com/litejs/browser-upgrade-lite
+[npm-package]: https://npmjs.org/package/browser-upgrade-lite
+
+
+    @version    0.1.5
+    @date       2014-01-20
+    @stability  2 - Unstable
+
 
 
 Browser upgrade
 ===============
 
 Implement EcmaScript 5 methods for older browsers.
-Download [compressed][1] 
-(2106 bytes, 1007 bytes gzipped)
-or [uncompressed][2] source.
 
 
-### Contains
+Contains
+--------
 
 - Functionprototype.bind
 - Object.keys
@@ -42,7 +45,14 @@ Browser Support
 [![browser support][7]][8]
 
 
-### Licence
+External links
+--------------
+
+-   [npm-package][]
+
+
+Licence
+-------
 
 Copyright (c) 2012 Lauri Rooden &lt;lauri@rooden.ee&gt;  
 [The MIT License](http://lauri.rooden.ee/mit-license.txt)
