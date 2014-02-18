@@ -2,8 +2,8 @@
 
 
 /*
-* @version    0.1.7
-* @date       2014-01-20
+* @version    0.1.8
+* @date       2014-02-18
 * @stability  2 - Unstable
 * @author     Lauri Rooden <lauri@rooden.ee>
 * @license    MIT License
@@ -11,21 +11,25 @@
 
 
 
+
 !function(win) {
-	var a, b, c
+	var a, b
+	, c = Object
 	, P = "prototype"
 	, A = Array[P]
 	, S = String[P]
-	, O = Object
-	, _escape = escape
+	, F = Function
+	, esc = escape
 	, patched = win._patched = []
 
 	function I(obj, key, src, force) {
 		if (force || !obj[key]) {
-			obj[key] = new Function("a,b,c","var P='prototype';"+src)
+			obj[key] = new F("a,b,c","var P='"+P+"';"+src)
 			patched.push(key)
 		}
 	}
+
+	F.Nop = function(){}
 
 	/*
 	* The HTML5 document.head DOM tree accessor
@@ -36,15 +40,17 @@
 	/*
 	* Function.prototype.bind from ECMAScript5
 	* Basic support:	Chrome 7 Firefox (Gecko) 4.0 (2) IE 9 Opera 11.60 Safari 5.1.4
+	*
+	* http://msdn.microsoft.com/en-us/library/s4esdbwz(v=vs.94).aspx
 	*/
-	I(Function[P], "bind", "var t=this;b=[].slice.call(arguments,1);c=function(){return t.apply(this instanceof c?this:a,b.concat.apply(b,arguments))};if(t[P])c[P]=t[P];return c")
+	I(F[P], "bind", "var t=this;b=[].slice.call(arguments,1);c=function(){return t.apply(this instanceof c?this:a,b.concat.apply(b,arguments))};if(t[P])c[P]=t[P];return c")
 
 
 	// Object extensions
 	// -----------------
 
-	I(O, "create" , "Nop[P]=a;return new Nop")
-	I(O, "keys"   , "c=[];for(b in a)a.hasOwnProperty(b)&&c.push(b);return c")
+	I(c, "create" , "b=Function.Nop;b[P]=a;return new b")
+	I(c, "keys"   , "c=[];for(b in a)a.hasOwnProperty(b)&&c.push(b);return c")
 
 
 
@@ -90,18 +96,18 @@
 		patched.push("JSON")
 		win.JSON = {
 			map: {"\b":"\\b","\f":"\\f","\n":"\\n","\r":"\\r","\t":"\\t",'"':'\\"',"\\":"\\\\"},
-			parse: new Function("t", "return new Function('return('+t+')')()"),
+			parse: new F("t", "return new Function('return('+t+')')()"),
 			//parse: Fn("t->new Function('return('+t+')')()"),
-			stringify: new Function("o", "if(o==null)return'null';if(o instanceof Date)return'\"'+o.toISOString()+'\"';var i,s=[],c;if(Array.isArray(o)){for(i=o.length;i--;s[i]=JSON.stringify(o[i]));return'['+s.join()+']'}c=typeof o;if(c=='string'){for(i=o.length;c=o.charAt(--i);s[i]=JSON.map[c]||(c<' '?'\\\\u00'+((c=c.charCodeAt(0))|4)+(c%16).toString(16):c));return'\"'+s.join('')+'\"'}if(c=='object'){for(i in o)o.hasOwnProperty(i)&&s.push(JSON.stringify(i)+':'+JSON.stringify(o[i]));return'{'+s.join()+'}'}return''+o")
+			stringify: new F("o", "if(o==null)return'null';if(o instanceof Date)return'\"'+o.toISOString()+'\"';var i,s=[],c;if(Array.isArray(o)){for(i=o.length;i--;s[i]=JSON.stringify(o[i]));return'['+s.join()+']'}c=typeof o;if(c=='string'){for(i=o.length;c=o.charAt(--i);s[i]=JSON.map[c]||(c<' '?'\\\\u00'+((c=c.charCodeAt(0))|4)+(c%16).toString(16):c));return'\"'+s.join('')+'\"'}if(c=='object'){for(i in o)o.hasOwnProperty(i)&&s.push(JSON.stringify(i)+':'+JSON.stringify(o[i]));return'{'+s.join()+'}'}return''+o")
 		}
 	}
 
 	// Ignore FF3 escape second non-standard argument
 	// https://bugzilla.mozilla.org/show_bug.cgi?id=666448
-	if (_escape("a",0) != "a") {
+	if (esc("a",0) != "a") {
 		patched.push("escape")
 		win.escape = function(s) {
-			return _escape(s)
+			return esc(s)
 		}
 	}
 

@@ -4,8 +4,8 @@
 [npm-package]: https://npmjs.org/package/browser-upgrade-lite
 
 
-    @version    0.1.7
-    @date       2014-01-20
+    @version    0.1.8
+    @date       2014-02-18
     @stability  2 - Unstable
 
 

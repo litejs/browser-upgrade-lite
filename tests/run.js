@@ -21,7 +21,6 @@ console.log("# Patched: " + mod._patched.join() )
 
 require("testman").
 describe("Array").
-	it ( "should have correct native indexOf").
 	it ( "should have correct indexOf").
 		equal( arr1.indexOf(0),        0).
 		equal( arr1.indexOf(0, 0),     0).
@@ -81,14 +80,14 @@ describe("Array").
 		}).
 		equal( res.join(), "2,4,2" ).
 
-	it ( "should have filter").
+	it ( "should have forEach").
 		run(function(){
 			res = [];
 			arr.forEach(function(val, key){res.push(val+key)});
 		}).
 		equal( res.join(), "1,3,5,7,6,10" ).
 
-	it ( "should have filter").
+	it ( "should have map").
 		run(function(){
 			res = arr.map(function(val, key){return (val+key)});
 		}).
@@ -124,7 +123,6 @@ describe("Native methods").
 	it ( "should have correct escape" ).
 		equal(escape("foo", NaN), "foo").
 
-	
 done()
 
 
