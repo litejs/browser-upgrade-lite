@@ -2,9 +2,9 @@
 
 
 /*
-* @version    0.1.8
-* @date       2014-02-18
-* @stability  2 - Unstable
+* @version    1.0.0
+* @date       2014-05-14
+* @stability  3 - Stable
 * @author     Lauri Rooden <lauri@rooden.ee>
 * @license    MIT License
 */
@@ -43,3 +43,4 @@
 	}
 
 }(this)
+

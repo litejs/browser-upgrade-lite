@@ -1,7 +1,7 @@
 {
   "name": "browser-upgrade-lite",
-  "version": "0.1.8",
-  "stability": 2,
+  "version": "1.0.0",
+  "stability": 3,
   "license": "MIT",
   "author": "Lauri Rooden <lauri@rooden.ee>",
   "description": "Implement EcmaScript 5 methods for older browsers",
@@ -16,10 +16,7 @@
     "travis-test": "istanbul cover ./tests/run.js && (coveralls < coverage/lcov.info || exit 0)",
     "test": "node tests/run.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/litejs/browser-upgrade-lite.git"
-  },
+  "repository": "git://github.com/litejs/browser-upgrade-lite.git",
   "bugs": {
     "url": "https://github.com/litejs/browser-upgrade-lite/issues"
   },
@@ -28,57 +25,38 @@
     "testman": "*"
   },
   "buildman": {
-    "min.js": "index.js",
+    "min.js": {
+      "banner": "/*! litejs.com/MIT-LICENSE.txt */",
+      "input": [
+        "index.js"
+      ]
+    },
     "min.base64.js": "base64.js",
     "min.array.js": "array.js"
   },
   "testling": {
     "files": "tests/run.js",
-    "browsers": {
-      "ie": [
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "ff": [
-        3,
-        4,
-        5,
-        20,
-        25,
-        "nightly"
-      ],
-      "chrome": [
-        4,
-        10,
-        20,
-        30,
-        31,
-        "canary"
-      ],
-      "safari": [
-        4,
-        5.1,
-        6
-      ],
-      "opera": [
-        10,
-        11,
-        "11.6",
-        12,
-        "next"
-      ],
-      "android-browser": [
-        4.2
-      ],
-      "iphone": [
-        6
-      ],
-      "ipad": [
-        6
-      ]
-    }
+    "browsers": [
+      "ie/6..10",
+      "ff/3",
+      "ff/4",
+      "ff/5",
+      "ff/20",
+      "ff/25",
+      "chrome/4",
+      "chrome/10",
+      "chrome/20",
+      "chrome/30",
+      "chrome/31",
+      "opera/10",
+      "opera/11",
+      "opera/11.6",
+      "opera/12",
+      "opera/16",
+      "safari/4..6",
+      "android-browser/4.2",
+      "iphone/6",
+      "ipad/6"
+    ]
   }
 }

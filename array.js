@@ -2,9 +2,9 @@
 
 
 /*
-* @version    0.1.8
-* @date       2014-02-18
-* @stability  2 - Unstable
+* @version    1.0.0
+* @date       2014-05-14
+* @stability  3 - Stable
 * @author     Lauri Rooden <lauri@rooden.ee>
 * @license    MIT License
 */
@@ -30,10 +30,10 @@
 
 	pre += "for(c=[];++i<l;)if(i in t)"
 	mid  = "a.call(b,t[i],i,t)"
-	
+
 	// array.forEach(callback[, thisArg])
 	add("forEach",     pre+mid)
-	
+
 	// array.map(callback[, thisArg])
 	add("map",         pre+"c[i]="+mid)
 
@@ -43,7 +43,7 @@
 	pre += "if("+mid+")"
 	// array.some(callback[, thisObject])
 	add("some",        pre+"return!0;c=!1")
-	
+
 	// array.filter(callback[, thisObject])
 	add("filter",      pre+"c.push(t[i])")
 }(Array.prototype

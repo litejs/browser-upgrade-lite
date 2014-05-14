@@ -65,7 +65,7 @@ describe("Array").
 		equal( arr2.reduceRight(sum), 6 ).
 		equal( arr2.reduceRight(sum, 0), 6 ).
 		equal( arr2.reduceRight(sum, 1), 7 ).
-	
+
 	it ( "should have every").
 		equal( [2, 4, 6, 8].every(function(i){return !(i%2)}), true).
 		equal( [2, 5, 6, 8].every(function(i){return !(i%2)}), false).
@@ -104,8 +104,6 @@ describe("String").
 	it ( "should have correct slice ").
 		equal("'hello world'".slice(1,-1), "hello world").
 
-			
-			
 describe("Native methods").
 	it ( "should have Object.keys()" ).
 		equal(obj_keys.join(), "a,b,cde").
@@ -210,10 +208,10 @@ test.done();
 	    'ksIGZpYW50IHNvbGxlbW5lcyBpbiBmdXR1cnVtLg=="
 
 	var test = TestCase("Base64");
-	
+
 	for (var key in map) if (map.hasOwnProperty(key)) test.compare(btoa(key), map[key], "base64_encode btoa");
 	for (var key in map) if (map.hasOwnProperty(key)) test.compare(key, atob(map[key]), "base64_decode atob");
-	
+
 	test.done();
 
 }();

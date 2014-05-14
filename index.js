@@ -2,9 +2,9 @@
 
 
 /*
-* @version    0.1.8
-* @date       2014-02-18
-* @stability  2 - Unstable
+* @version    1.0.0
+* @date       2014-05-14
+* @stability  3 - Stable
 * @author     Lauri Rooden <lauri@rooden.ee>
 * @license    MIT License
 */
@@ -13,18 +13,17 @@
 
 
 !function(win) {
-	var a, b
-	, c = Object
+	var a, b, c
 	, P = "prototype"
-	, A = Array[P]
-	, S = String[P]
 	, F = Function
 	, esc = escape
 	, patched = win._patched = []
+	, O
 
-	function I(obj, key, src, force) {
-		if (force || !obj[key]) {
-			obj[key] = new F("a,b,c","var P='"+P+"';"+src)
+
+	function add(key, src) {
+		if (!O[key]) {
+			O[key] = new F("a,b,c","var P='"+P+"';"+src)
 			patched.push(key)
 		}
 	}
@@ -43,14 +42,16 @@
 	*
 	* http://msdn.microsoft.com/en-us/library/s4esdbwz(v=vs.94).aspx
 	*/
-	I(F[P], "bind", "var t=this;b=[].slice.call(arguments,1);c=function(){return t.apply(this instanceof c?this:a,b.concat.apply(b,arguments))};if(t[P])c[P]=t[P];return c")
+	O = F[P]
+	add("bind", "var t=this;b=[].slice.call(arguments,1);c=function(){return t.apply(this instanceof c?this:a,b.concat.apply(b,arguments))};if(t[P])c[P]=t[P];return c")
 
 
 	// Object extensions
 	// -----------------
 
-	I(c, "create" , "b=Function.Nop;b[P]=a;return new b")
-	I(c, "keys"   , "c=[];for(b in a)a.hasOwnProperty(b)&&c.push(b);return c")
+	O = Object
+	add("create" , "b=Function.Nop;b[P]=a;return new b")
+	add("keys"   , "c=[];for(b in a)a.hasOwnProperty(b)&&c.push(b);return c")
 
 
 
@@ -58,39 +59,45 @@
 	// Array extensions
 	// ----------------
 
-	I(Array, "isArray", "return a instanceof Array")
+	O = Array
+	add("isArray", "return a instanceof Array")
 
+	O = O[P]
 	a = "var t=this,l=t.length,o=[],i=-1;"
 	c = "if(t[i]===a)return i;return -1"
-	I(A, "indexOf",     a+"i+=b|0;while(++i<l)"+c)
-	I(A, "lastIndexOf", a+"i=(b|0)||l;i>--l&&(i=l)||i<0&&(i+=l);++i;while(--i>-1)"+c)
+	add("indexOf",     a+"i+=b|0;while(++i<l)"+c)
+	add("lastIndexOf", a+"i=(b|0)||l;i>--l&&(i=l)||i<0&&(i+=l);++i;while(--i>-1)"+c)
 
 	b = a+"if(arguments.length<2)b=t"
 	c = "b=a.call(null,b,t[i],i,t);return b"
-	I(A, "reduce",      b+"[++i];while(++i<l)"+c)
-	I(A, "reduceRight", b+"[--l];i=l;while(i--)"+c)
+	add("reduce",      b+"[++i];while(++i<l)"+c)
+	add("reduceRight", b+"[--l];i=l;while(i--)"+c)
 
 	b = a+"while(++i<l)if(i in t)"
-	I(A, "forEach",     b+"a.call(b,t[i],i,t)")
-	I(A, "every",       b+"if(!a.call(b,t[i],i,t))return!1;return!0")
+	add("forEach",     b+"a.call(b,t[i],i,t)")
+	add("every",       b+"if(!a.call(b,t[i],i,t))return!1;return!0")
 
 	c = ";return o"
-	I(A, "map",         b+"o[i]=a.call(b,t[i],i,t)"+c)
+	add("map",         b+"o[i]=a.call(b,t[i],i,t)"+c)
 
 	b += "if(a.call(b,t[i],i,t))"
-	I(A, "filter",      b+"o.push(t[i])"+c)
-	I(A, "some",        b+"return!0;return!1")
+	add("filter",      b+"o.push(t[i])"+c)
+	add("some",        b+"return!0;return!1")
 
 
-	I(S, "trim", "return this.replace(/^\\s+|\\s+$/g, '')")
+	O = String[P]
+	add("trim", "return this.replace(/^\\s+|\\s+$/g, '')")
+
+	O = Date
+	add("now", "return+new Date")
 
 	/*
 	* `Date.prototype.format` is implemented in `date-format-lite` module.
 	*/
 
-	I(Date[P], "toISOString", "return this.format('isoUtcDateTime')")
+	O = O[P]
+	add("toISOString", "return this.format('isoUtcDateTime')")
 
-	I(Date, "now", "return+new Date")
 
 	if (!win.JSON) {
 		patched.push("JSON")

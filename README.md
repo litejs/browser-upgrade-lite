@@ -1,12 +1,11 @@
 
 [7]: https://ci.testling.com/litejs/browser-upgrade-lite.png
 [8]: https://ci.testling.com/litejs/browser-upgrade-lite
-[npm-package]: https://npmjs.org/package/browser-upgrade-lite
 
 
-    @version    0.1.8
-    @date       2014-02-18
-    @stability  2 - Unstable
+    @version    1.0.0
+    @date       2014-05-14
+    @stability  3 - Stable
 
 
 
@@ -46,10 +45,11 @@ Browser Support
 
 -   If no !DOCTYPE is specified, IE6-9 renders the page in IE5 mode!
 -   document.createDocumentFragment is unsupported in IE5.5
--   IE 5.5 doesn't support the * collection (all elements) in 
+-   IE 5.5 doesn't support the * collection (all elements) in
     document.getElementByTagName — it returns a collection with zero members
 -   instanceof is not implemented in IE 5 MAC
 -   Safari 2.0.2: 416     hasOwnProperty introduced October 31, 2005 (Mac OS X v10.4)
+
     ```javascript
     // Polyfill
     Object.prototype.hasOwnProperty = function(name, obj) {
@@ -66,13 +66,15 @@ Browser Support
 External links
 --------------
 
--   [npm-package][]
+-   [Source-code on Github](https://github.com/litejs/browser-upgrade-lite)
+-   [Package on npm](https://npmjs.org/package/browser-upgrade-lite)
+-   [Standard ECMA-262](http://www.ecma-international.org/publications/standards/Ecma-262.htm)
 
 
 Licence
 -------
 
-Copyright (c) 2012 Lauri Rooden &lt;lauri@rooden.ee&gt;  
+Copyright (c) 2012, 2014 Lauri Rooden &lt;lauri@rooden.ee&gt;  
 [The MIT License](http://lauri.rooden.ee/mit-license.txt)
 
 
