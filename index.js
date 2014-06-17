@@ -2,8 +2,8 @@
 
 
 /*
-* @version    1.0.0
-* @date       2014-05-14
+* @version    1.0.1
+* @date       2014-06-17
 * @stability  3 - Stable
 * @author     Lauri Rooden <lauri@rooden.ee>
 * @license    MIT License
@@ -51,7 +51,7 @@
 
 	O = Object
 	add("create" , "b=Function.Nop;b[P]=a;return new b")
-	add("keys"   , "c=[];for(b in a)a.hasOwnProperty(b)&&c.push(b);return c")
+	add("keys"   , "c=[];for(b in a)Object.prototype.hasOwnProperty.call(a,b)&&c.push(b);return c")
 
 
 
@@ -105,7 +105,7 @@
 			map: {"\b":"\\b","\f":"\\f","\n":"\\n","\r":"\\r","\t":"\\t",'"':'\\"',"\\":"\\\\"},
 			parse: new F("t", "return new Function('return('+t+')')()"),
 			//parse: Fn("t->new Function('return('+t+')')()"),
-			stringify: new F("o", "if(o==null)return'null';if(o instanceof Date)return'\"'+o.toISOString()+'\"';var i,s=[],c;if(Array.isArray(o)){for(i=o.length;i--;s[i]=JSON.stringify(o[i]));return'['+s.join()+']'}c=typeof o;if(c=='string'){for(i=o.length;c=o.charAt(--i);s[i]=JSON.map[c]||(c<' '?'\\\\u00'+((c=c.charCodeAt(0))|4)+(c%16).toString(16):c));return'\"'+s.join('')+'\"'}if(c=='object'){for(i in o)o.hasOwnProperty(i)&&s.push(JSON.stringify(i)+':'+JSON.stringify(o[i]));return'{'+s.join()+'}'}return''+o")
+			stringify: new F("o", "if(o==null)return'null';if(o instanceof Date)return'\"'+o.toISOString()+'\"';var i,s=[],c;if(Array.isArray(o)){for(i=o.length;i--;s[i]=JSON.stringify(o[i]));return'['+s.join()+']'}c=typeof o;if(c=='string'){for(i=o.length;c=o.charAt(--i);s[i]=JSON.map[c]||(c<' '?'\\\\u00'+((c=c.charCodeAt(0))|4)+(c%16).toString(16):c));return'\"'+s.join('')+'\"'}if(c=='object'){for(i in o)Object.prototype.hasOwnProperty.call(o,i)&&s.push(JSON.stringify(i)+':'+JSON.stringify(o[i]));return'{'+s.join()+'}'}return''+o")
 		}
 	}
 
