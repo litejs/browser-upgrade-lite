@@ -2,8 +2,8 @@
 
 
 /*
-* @version    1.0.1
-* @date       2014-06-17
+* @version    1.1.0
+* @date       2014-09-12
 * @stability  3 - Stable
 * @author     Lauri Rooden <lauri@rooden.ee>
 * @license    MIT License
@@ -12,13 +12,12 @@
 
 
 
-!function(win) {
-	var a, b, c
+!function(window) {
+	var a, b, c, O
 	, P = "prototype"
 	, F = Function
 	, esc = escape
-	, patched = win._patched = []
-	, O
+	, patched = window._patched = []
 
 
 	function add(key, src) {
@@ -99,9 +98,9 @@
 	add("toISOString", "return this.format('isoUtcDateTime')")
 
 
-	if (!win.JSON) {
+	if (!window.JSON) {
 		patched.push("JSON")
-		win.JSON = {
+		window.JSON = {
 			map: {"\b":"\\b","\f":"\\f","\n":"\\n","\r":"\\r","\t":"\\t",'"':'\\"',"\\":"\\\\"},
 			parse: new F("t", "return new Function('return('+t+')')()"),
 			//parse: Fn("t->new Function('return('+t+')')()"),
@@ -113,7 +112,7 @@
 	// https://bugzilla.mozilla.org/show_bug.cgi?id=666448
 	if (esc("a",0) != "a") {
 		patched.push("escape")
-		win.escape = function(s) {
+		window.escape = function(s) {
 			return esc(s)
 		}
 	}

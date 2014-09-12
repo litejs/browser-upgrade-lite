@@ -1,6 +1,6 @@
 {
   "name": "browser-upgrade-lite",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "stability": 3,
   "license": "MIT",
   "author": "Lauri Rooden <lauri@rooden.ee>",
@@ -14,7 +14,8 @@
   "scripts": {
     "build": "node node_modules/buildman/index.js --all",
     "travis-test": "istanbul cover ./tests/run.js && (coveralls < coverage/lcov.info || exit 0)",
-    "test": "node tests/run.js"
+    "test": "node tests/run.js",
+    "test-promise": "./node_modules/promises-aplus-tests/lib/cli.js tests/adapter.js"
   },
   "repository": "git://github.com/litejs/browser-upgrade-lite.git",
   "bugs": {
@@ -22,17 +23,19 @@
   },
   "devDependencies": {
     "buildman": "*",
+    "promises-aplus-tests": "*",
     "testman": "*"
   },
   "buildman": {
-    "min.js": {
+    "dist/index-min.js": {
       "banner": "/*! litejs.com/MIT-LICENSE.txt */",
       "input": [
         "index.js"
       ]
     },
-    "min.base64.js": "base64.js",
-    "min.array.js": "array.js"
+    "dist/base64-min.js": "base64.js",
+    "dist/array-min.js": "array.js",
+    "dist/promise-min.js": "promise.js"
   },
   "testling": {
     "files": "tests/run.js",

@@ -3,8 +3,8 @@
 [8]: https://ci.testling.com/litejs/browser-upgrade-lite
 
 
-    @version    1.0.1
-    @date       2014-06-17
+    @version    1.1.0
+    @date       2014-09-12
     @stability  3 - Stable
 
 
@@ -35,7 +35,8 @@ Contains
 - Date.now
 - String.prototype.trim
 - JSON
-- atob/btoa (base64) // Disabled by default
+- atob/btoa (base64) // In separate file
+- Promise            // In separate file
 
 
 Browser Support
