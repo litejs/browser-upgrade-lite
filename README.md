@@ -4,7 +4,7 @@
 
 
     @version    1.1.0
-    @date       2014-09-12
+    @date       2014-10-30
     @stability  3 - Stable
 
 

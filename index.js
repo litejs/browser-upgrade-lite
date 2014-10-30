@@ -3,7 +3,7 @@
 
 /*
 * @version    1.1.0
-* @date       2014-09-12
+* @date       2014-10-30
 * @stability  3 - Stable
 * @author     Lauri Rooden <lauri@rooden.ee>
 * @license    MIT License
@@ -22,7 +22,7 @@
 
 	function add(key, src) {
 		if (!O[key]) {
-			O[key] = new F("a,b,c","var P='"+P+"';"+src)
+			O[key] = new F("a,b,c", "var P='" + P + "';" + src)
 			patched.push(key)
 		}
 	}
@@ -49,8 +49,8 @@
 	// -----------------
 
 	O = Object
-	add("create" , "b=Function.Nop;b[P]=a;return new b")
-	add("keys"   , "c=[];for(b in a)Object.prototype.hasOwnProperty.call(a,b)&&c.push(b);return c")
+	add("create", "b=Function.Nop;b[P]=a;return new b")
+	add("keys", "c=[];for(b in a)Object.prototype.hasOwnProperty.call(a,b)&&c.push(b);return c")
 
 
 
@@ -64,28 +64,28 @@
 	O = O[P]
 	a = "var t=this,l=t.length,o=[],i=-1;"
 	c = "if(t[i]===a)return i;return -1"
-	add("indexOf",     a+"i+=b|0;while(++i<l)"+c)
-	add("lastIndexOf", a+"i=(b|0)||l;i>--l&&(i=l)||i<0&&(i+=l);++i;while(--i>-1)"+c)
+	add("indexOf",     a + "i+=b|0;while(++i<l)" + c)
+	add("lastIndexOf", a + "i=(b|0)||l;i>--l&&(i=l)||i<0&&(i+=l);++i;while(--i>-1)" + c)
 
-	b = a+"if(arguments.length<2)b=t"
+	b = a + "if(arguments.length<2)b=t"
 	c = "b=a.call(null,b,t[i],i,t);return b"
-	add("reduce",      b+"[++i];while(++i<l)"+c)
-	add("reduceRight", b+"[--l];i=l;while(i--)"+c)
+	add("reduce",      b + "[++i];while(++i<l)" + c)
+	add("reduceRight", b + "[--l];i=l;while(i--)" + c)
 
 	b = a+"while(++i<l)if(i in t)"
-	add("forEach",     b+"a.call(b,t[i],i,t)")
-	add("every",       b+"if(!a.call(b,t[i],i,t))return!1;return!0")
+	add("forEach",     b + "a.call(b,t[i],i,t)")
+	add("every",       b + "if(!a.call(b,t[i],i,t))return!1;return!0")
 
 	c = ";return o"
-	add("map",         b+"o[i]=a.call(b,t[i],i,t)"+c)
+	add("map",         b + "o[i]=a.call(b,t[i],i,t)" + c)
 
 	b += "if(a.call(b,t[i],i,t))"
-	add("filter",      b+"o.push(t[i])"+c)
-	add("some",        b+"return!0;return!1")
+	add("filter",      b + "o.push(t[i])" + c)
+	add("some",        b + "return!0;return!1")
 
 
 	O = String[P]
-	add("trim", "return this.replace(/^\\s+|\\s+$/g, '')")
+	add("trim", "return this.replace(/^\\s+|\\s+$/g,'')")
 
 	O = Date
 	add("now", "return+new Date")
@@ -104,7 +104,25 @@
 			map: {"\b":"\\b","\f":"\\f","\n":"\\n","\r":"\\r","\t":"\\t",'"':'\\"',"\\":"\\\\"},
 			parse: new F("t", "return new Function('return('+t+')')()"),
 			//parse: Fn("t->new Function('return('+t+')')()"),
-			stringify: new F("o", "if(o==null)return'null';if(o instanceof Date)return'\"'+o.toISOString()+'\"';var i,s=[],c;if(Array.isArray(o)){for(i=o.length;i--;s[i]=JSON.stringify(o[i]));return'['+s.join()+']'}c=typeof o;if(c=='string'){for(i=o.length;c=o.charAt(--i);s[i]=JSON.map[c]||(c<' '?'\\\\u00'+((c=c.charCodeAt(0))|4)+(c%16).toString(16):c));return'\"'+s.join('')+'\"'}if(c=='object'){for(i in o)Object.prototype.hasOwnProperty.call(o,i)&&s.push(JSON.stringify(i)+':'+JSON.stringify(o[i]));return'{'+s.join()+'}'}return''+o")
+			stringify: new F("o", ""
+				+ "if(o==null)return'null';"
+				+ "if(o instanceof Date)return'\"'+o.toISOString()+'\"';"
+				+ "var i,s=[],c;"
+				+ "if(Array.isArray(o)){"
+					+ "for(i=o.length;i--;s[i]=JSON.stringify(o[i]));"
+					+ "return'['+s.join()+']'"
+				+ "}"
+				+ "c=typeof o;"
+				+ "if(c=='string'){"
+					+ "for(i=o.length;c=o.charAt(--i);s[i]=JSON.map[c]||(c<' '?'\\\\u00'+((c=c.charCodeAt(0))|4)+(c%16).toString(16):c));"
+					+ "return'\"'+s.join('')+'\"'"
+				+ "}"
+				+ "if(c=='object'){"
+					+ "for(i in o)Object.prototype.hasOwnProperty.call(o,i)&&s.push(JSON.stringify(i)+':'+JSON.stringify(o[i]));"
+					+ "return'{'+s.join()+'}'"
+				+ "}"
+				+ "return''+o"
+			)
 		}
 	}
 

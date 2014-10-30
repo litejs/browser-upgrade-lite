@@ -3,7 +3,7 @@
 
 /*
 * @version    1.1.0
-* @date       2014-09-12
+* @date       2014-10-30
 * @stability  3 - Stable
 * @author     Lauri Rooden <lauri@rooden.ee>
 * @license    MIT License
@@ -16,7 +16,6 @@
 		// abcdefghijklmnopqrstuvwxyz234567
 		// ybndrfg8ejkmcpqxot1uwisza345h769
 
-		
 		for (var i = 64,
 			 ba = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".split(""),
 		 	 bm = {"=":0} ; bm[ba[--i]]=i;){};
