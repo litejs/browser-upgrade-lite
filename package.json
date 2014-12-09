@@ -1,6 +1,6 @@
 {
   "name": "browser-upgrade-lite",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "stability": 3,
   "license": "MIT",
   "author": "Lauri Rooden <lauri@rooden.ee>",
@@ -36,30 +36,5 @@
     "dist/base64-min.js": "base64.js",
     "dist/array-min.js": "array.js",
     "dist/promise-min.js": "promise.js"
-  },
-  "testling": {
-    "files": "tests/run.js",
-    "browsers": [
-      "ie/6..10",
-      "ff/3",
-      "ff/4",
-      "ff/5",
-      "ff/20",
-      "ff/25",
-      "chrome/4",
-      "chrome/10",
-      "chrome/20",
-      "chrome/30",
-      "chrome/31",
-      "opera/10",
-      "opera/11",
-      "opera/11.6",
-      "opera/12",
-      "opera/16",
-      "safari/4..6",
-      "android-browser/4.2",
-      "iphone/6",
-      "ipad/6"
-    ]
   }
 }

@@ -1,13 +1,13 @@
 
 
 
-/*
-* @version    1.1.0
-* @date       2014-10-30
-* @stability  3 - Stable
-* @author     Lauri Rooden <lauri@rooden.ee>
-* @license    MIT License
-*/
+/**
+ * @version    1.1.1
+ * @date       2014-12-09
+ * @stability  3 - Stable
+ * @author     Lauri Rooden <lauri@rooden.ee>
+ * @license    MIT License
+ */
 
 
 
@@ -22,7 +22,7 @@
 
 	function add(key, src) {
 		if (!O[key]) {
-			O[key] = new F("a,b,c", "var P='" + P + "';" + src)
+			O[key] = F("a,b,c", "var P='" + P + "';" + src)
 			patched.push(key)
 		}
 	}
@@ -37,7 +37,7 @@
 
 	/*
 	* Function.prototype.bind from ECMAScript5
-	* Basic support:	Chrome 7 Firefox (Gecko) 4.0 (2) IE 9 Opera 11.60 Safari 5.1.4
+	* Basic support: Chrome 7 Firefox (Gecko) 4.0 (2) IE 9 Opera 11.60 Safari 5.1.4
 	*
 	* http://msdn.microsoft.com/en-us/library/s4esdbwz(v=vs.94).aspx
 	*/
@@ -102,26 +102,23 @@
 		patched.push("JSON")
 		window.JSON = {
 			map: {"\b":"\\b","\f":"\\f","\n":"\\n","\r":"\\r","\t":"\\t",'"':'\\"',"\\":"\\\\"},
-			parse: new F("t", "return new Function('return('+t+')')()"),
-			//parse: Fn("t->new Function('return('+t+')')()"),
-			stringify: new F("o", ""
-				+ "if(o==null)return'null';"
-				+ "if(o instanceof Date)return'\"'+o.toISOString()+'\"';"
-				+ "var i,s=[],c;"
-				+ "if(Array.isArray(o)){"
-					+ "for(i=o.length;i--;s[i]=JSON.stringify(o[i]));"
-					+ "return'['+s.join()+']'"
-				+ "}"
-				+ "c=typeof o;"
+			parse: F("t", "return Function('return('+t+')')()"),
+			stringify: F("o", ""
+				+ "var i,s=[],c=typeof o;"
 				+ "if(c=='string'){"
 					+ "for(i=o.length;c=o.charAt(--i);s[i]=JSON.map[c]||(c<' '?'\\\\u00'+((c=c.charCodeAt(0))|4)+(c%16).toString(16):c));"
-					+ "return'\"'+s.join('')+'\"'"
+					+ "o='\"'+s.join('')+'\"'"
 				+ "}"
-				+ "if(c=='object'){"
+				+ "if(o&&c=='object'){"
+					+ "if(o instanceof Date)return'\"'+o.toISOString()+'\"';"
+					+ "if(Array.isArray(o)){"
+						+ "for(i=o.length;i--;s[i]=JSON.stringify(o[i]));"
+						+ "return'['+s.join()+']'"
+					+ "}"
 					+ "for(i in o)Object.prototype.hasOwnProperty.call(o,i)&&s.push(JSON.stringify(i)+':'+JSON.stringify(o[i]));"
-					+ "return'{'+s.join()+'}'"
+					+ "o='{'+s.join()+'}'"
 				+ "}"
-				+ "return''+o"
+				+ "return o==null?'null':''+o"
 			)
 		}
 	}

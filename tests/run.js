@@ -1,16 +1,23 @@
 
 var mod = require("../")
 
-global.JSON = global.JSON || mod.JSON
+global.JSON = mod.JSON
 global.escape = mod.escape || global.escape
+
+
+function My() {
+	this.n = "N"
+}
+My.prototype.m = "M"
+
 
 var undef, res
 , arr = [1,2,3,4,2,5]
 , arr1 = [0, 1, 3, 5, 7, 3, 5, "3", true, undef]
 , arr2 = [0, 1, 2, 3]
 
-, obj = {a:1,b:"2","cde":[1,"2",null,false,true,void 0,"kala"]}
-, expected = '{"a":1,"b":"2","cde":[1,"2",null,false,true,null,"kala"]}'
+, obj = {a:1,b:"2","cde":[1,"2",null,false,true,undef,"ka\nla"],f:new Date(1234567890),g:[],h:new My}
+, expected = '{"a":1,"b":"2","cde":[1,"2",null,false,true,null,"ka\\nla"],"f":"1970-01-15T06:56:07.890Z","g":[],"h":{"n":"N"}}'
 , obj_keys = Object.keys(obj)
 
 , bind_test = function(var1,var2){return var1+this.b+var2}
@@ -106,11 +113,11 @@ describe("String").
 
 describe("Native methods").
 	it ( "should have Object.keys()" ).
-		equal(obj_keys.join(), "a,b,cde").
+	equal(obj_keys.join(), "a,b,cde,f,g,h").
 	it ( "should have JSON" ).
 		equal(JSON.stringify( obj ) , expected).
 		equal(JSON.stringify( JSON.parse( expected ) ) , expected).
-		equal(JSON.stringify( obj_keys ) , '["a","b","cde"]').
+		equal(JSON.stringify( obj_keys ) , '["a","b","cde","f","g","h"]').
 	it ( "should have hasOwnProperty" ).
 		equal("hasOwnProperty" in obj, true).
 		equal(obj.hasOwnProperty("a"), true).
