@@ -3,8 +3,8 @@
 [8]: https://ci.testling.com/litejs/browser-upgrade-lite
 
 
-    @version    1.1.1
-    @date       2014-12-09
+    @version    1.1.2
+    @date       2015-02-01
     @stability  3 - Stable
 
 

@@ -2,8 +2,8 @@
 
 
 /**
- * @version    1.1.1
- * @date       2014-12-09
+ * @version    1.1.2
+ * @date       2015-02-01
  * @stability  3 - Stable
  * @author     Lauri Rooden <lauri@rooden.ee>
  * @license    MIT License
@@ -125,13 +125,18 @@
 
 	// Ignore FF3 escape second non-standard argument
 	// https://bugzilla.mozilla.org/show_bug.cgi?id=666448
-	if (esc("a",0) != "a") {
+	if (esc("a", 0) != "a") {
 		patched.push("escape")
 		window.escape = function(s) {
 			return esc(s)
 		}
 	}
 
+	// Remove background image flickers on hover in IE6
+	//
+	// You could also use CSS
+	// html { filter: expression(document.execCommand("BackgroundImageCache", false, true)); }
+	eval("/*@cc_on try{document.execCommand('BackgroundImageCache',false,true)}catch(e){}@*/")
 }(this)
 
 
