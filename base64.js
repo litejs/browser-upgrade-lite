@@ -2,12 +2,12 @@
 
 
 /*
-* @version    1.1.2
-* @date       2015-02-01
-* @stability  3 - Stable
-* @author     Lauri Rooden <lauri@rooden.ee>
-* @license    MIT License
-*/
+ * @version    1.1.3
+ * @date       2015-02-25
+ * @stability  3 - Stable
+ * @author     Lauri Rooden <lauri@rooden.ee>
+ * @license    MIT License
+ */
 
 
 
