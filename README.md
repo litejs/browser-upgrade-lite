@@ -2,8 +2,8 @@
 [GitHub repo]: https://github.com/litejs/browser-upgrade-lite
 
 
-    @version    1.1.3
-    @date       2015-02-25
+    @version    1.1.4
+    @date       2015-03-01
     @stability  3 - Stable
 
 

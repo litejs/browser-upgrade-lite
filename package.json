@@ -1,9 +1,9 @@
 {
   "name": "browser-upgrade-lite",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "stability": 3,
-  "license": "MIT",
   "author": "Lauri Rooden <lauri@rooden.ee>",
+  "license": "MIT",
   "description": "Implement EcmaScript 5 methods for older browsers",
   "keywords": [
     "browser",
@@ -11,6 +11,11 @@
   ],
   "main": "index.js",
   "readmeFilename": "README.md",
+  "files": [
+    "base64.js",
+    "index.js",
+    "promise.js"
+  ],
   "scripts": {
     "build": "node node_modules/buildman/index.js --all",
     "travis-test": "istanbul cover ./tests/run.js && (coveralls < coverage/lcov.info || exit 0)",
@@ -29,12 +34,9 @@
   "buildman": {
     "dist/index-min.js": {
       "banner": "/*! litejs.com/MIT-LICENSE.txt */",
-      "input": [
-        "index.js"
-      ]
+      "input": "index.js"
     },
     "dist/base64-min.js": "base64.js",
-    "dist/array-min.js": "array.js",
     "dist/promise-min.js": "promise.js"
   }
 }
