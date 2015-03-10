@@ -12,6 +12,7 @@
   "main": "index.js",
   "readmeFilename": "README.md",
   "files": [
+    "dist",
     "base64.js",
     "index.js",
     "promise.js"

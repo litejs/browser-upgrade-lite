@@ -22,6 +22,7 @@
 
 	function parseWithActiveX(str) {
 		var doc = new ActiveXObject("MSXML.DomDocument")
+		//var doc = new ActiveXObject("Microsoft.XMLDOM")
 		doc.loadXML(str)
 		return doc
 	}

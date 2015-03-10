@@ -17,7 +17,7 @@ Implement EcmaScript 5 methods for older browsers.
 Contains
 --------
 
-- Functionprototype.bind
+- Function.prototype.bind
 - Object.keys
 - Object.create
 - Array.isArray
