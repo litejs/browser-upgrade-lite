@@ -27,7 +27,7 @@
 		}
 	}
 
-	F.Nop = function(){}
+	F.nop = function(){}
 
 	/*
 	* The HTML5 document.head DOM tree accessor
@@ -49,7 +49,7 @@
 	// -----------------
 
 	O = Object
-	add("create", "b=Function.Nop;b[P]=a;return new b")
+	add("create", "b=Function.nop;b[P]=a;a=new a;b[P]=null;return a")
 	add("keys", "c=[];for(b in a)Object.prototype.hasOwnProperty.call(a,b)&&c.push(b);return c")
 
 
