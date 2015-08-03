@@ -95,7 +95,7 @@
 	*/
 
 	O = O[P]
-	add("toISOString", "return this.format('isoUtcDateTime')")
+	add("toISOString", "return this.format('iso')")
 
 
 	if (!window.JSON) {
