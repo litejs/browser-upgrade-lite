@@ -95,7 +95,7 @@
 	*/
 
 	O = O[P]
-	add("toISOString", "return this.format('iso')")
+	add("toJSON", "return this.format('iso')")
 
 
 	if (!window.JSON) {
@@ -110,7 +110,7 @@
 					+ "o='\"'+s.join('')+'\"'"
 				+ "}"
 				+ "if(o&&c=='object'){"
-					+ "if(o instanceof Date)return'\"'+o.toISOString()+'\"';"
+					+ "if(typeof o.toJSON=='function')return'\"'+o.toJSON()+'\"';"
 					+ "if(Array.isArray(o)){"
 						+ "for(i=o.length;i--;s[i]=JSON.stringify(o[i]));"
 						+ "return'['+s.join()+']'"
