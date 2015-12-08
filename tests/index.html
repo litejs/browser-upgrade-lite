@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1">
+<script src="../index.js"></script>
+<script>
+var slice = Function.prototype.call.bind(Array.prototype.slice)
+
+function slice2() {
+	return slice(arguments)
+}
+
+document.write("sliced1 " + slice([1,2]) + " == sliced1 1,2<br>")
+document.write("sliced2 " + slice2(1,2) + " == sliced2 1,2")
+</script>

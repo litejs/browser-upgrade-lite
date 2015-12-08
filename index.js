@@ -42,7 +42,7 @@
 	* http://msdn.microsoft.com/en-us/library/s4esdbwz(v=vs.94).aspx
 	*/
 	O = F[P]
-	add("bind", "var t=this;b=[].slice.call(arguments,1);c=function(){return t.apply(this instanceof c?this:a,b.concat.apply(b,arguments))};if(t[P])c[P]=t[P];return c")
+	add("bind", "var t=this;b=[].slice.call(arguments,1);c=function(){return t.apply(this instanceof c?this:a,b.concat(b.slice.call(arguments)))};if(t[P])c[P]=t[P];return c")
 
 
 	// Object extensions
