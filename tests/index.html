@@ -2,12 +2,31 @@
 <meta name="viewport" content="initial-scale=1,maximum-scale=1">
 <script src="../index.js"></script>
 <script>
-var slice = Function.prototype.call.bind(Array.prototype.slice)
 
-function slice2() {
-	return slice(arguments)
+function test(name, res, fn) {
+	try {
+		fn = fn()
+	} catch(e) {}
+
+	document.write(name + ":" + (fn == res ? "OK" : fn + "!=" + res) + "<br>")
 }
 
-document.write("sliced1 " + slice([1,2]) + " == sliced1 1,2<br>")
-document.write("sliced2 " + slice2(1,2) + " == sliced2 1,2")
+var slice = Function.prototype.call.bind(Array.prototype.slice)
+
+test("sliced1", "1,2", function() {
+	return "" + slice([1,2])
+})
+
+test("sliced2", "1,2", function() {
+	function slice2() {
+		return "" + slice(arguments)
+	}
+
+	return "" + slice2(1,2)
+})
+
+test("json1", '{"a":1}', function() {
+	return JSON.stringify({a:1})
+})
+
 </script>
