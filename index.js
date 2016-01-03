@@ -49,7 +49,7 @@
 	// -----------------
 
 	O = Object
-	add("create", "b=Function.nop;b[P]=a;a=new a;b[P]=null;return a")
+	add("create", "b=Function.nop;b[P]=a;a=new b;b[P]=null;return a")
 	add("keys", "c=[];for(b in a)Object.prototype.hasOwnProperty.call(a,b)&&c.push(b);return c")
 
 
