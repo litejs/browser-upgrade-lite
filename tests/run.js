@@ -1,4 +1,7 @@
 
+Object.create = null
+Object.assign = null
+
 var mod = require("../")
 
 global.JSON = mod.JSON
@@ -27,7 +30,7 @@ var undef, res
 console.log("# Patched: " + mod._patched.join() )
 
 require("testman").
-describe("Array").
+describe("ECMAScript5").
 	it ( "should have correct indexOf").
 		equal( arr1.indexOf(0),        0).
 		equal( arr1.indexOf(0, 0),     0).
@@ -128,6 +131,12 @@ describe("Native methods").
 	it ( "should have correct escape" ).
 		equal(escape("foo", NaN), "foo").
 
+describe("ECMAScript6").
+test( "Object.assign", function(assert) {
+
+	var a = {a:1}
+	assert.equal(Object.assign(a, {b:2}), {a:1, b:2})
+}).
 done()
 
 

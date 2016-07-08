@@ -22,7 +22,7 @@
 
 	function add(key, src) {
 		if (!O[key]) {
-			O[key] = F("a,b,c", "var P='" + P + "';" + src)
+			O[key] = F("a,b,c", "var P='" + P + "',o=Object[P].hasOwnProperty;" + src)
 			patched.push(key)
 		}
 	}
@@ -50,10 +50,11 @@
 
 	O = Object
 	add("create", "b=Function.nop;b[P]=a;a=new b;b[P]=null;return a")
-	add("keys", "c=[];for(b in a)Object.prototype.hasOwnProperty.call(a,b)&&c.push(b);return c")
+	add("keys", "c=[];for(b in a)o.call(a,b)&&c.push(b);return c")
 
-
-
+	// Object.assign ( target, source ) in ECMAScript 6
+	// Chrome 45, Firefox 34, IE Edge
+	add("assign", "for(P=1;b=arguments[P++];)for(c in b)if(o.call(b,c))a[c]=b[c];return a")
 
 	// Array extensions
 	// ----------------
