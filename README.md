@@ -2,8 +2,8 @@
 [GitHub repo]: https://github.com/litejs/browser-upgrade-lite
 
 
-    @version    1.2.2
-    @date       2016-01-05
+    @version    1.3.0
+    @date       2016-07-08
     @stability  3 - Stable
 
 
@@ -34,6 +34,8 @@ Contains
 - Date.now
 - String.prototype.trim
 - JSON
+- performance.now
+- Object.assign (Use this for optional load)
 - fixes FF3 `escape` second non-standard argument ([bug](https://bugzilla.mozilla.org/show_bug.cgi?id=666448))
 - removes background image flickers on hover in IE6
 - atob/btoa (base64) // In separate file
@@ -73,7 +75,7 @@ External links
 Licence
 -------
 
-Copyright (c) 2012-2015 Lauri Rooden &lt;lauri@rooden.ee&gt;  
+Copyright (c) 2012-2016 Lauri Rooden &lt;lauri@rooden.ee&gt;  
 [The MIT License](http://lauri.rooden.ee/mit-license.txt)
 
 
