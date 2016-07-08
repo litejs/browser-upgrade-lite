@@ -37,7 +37,7 @@
 
 	/*
 	* Function.prototype.bind from ECMAScript5
-	* Basic support: Chrome 7 Firefox (Gecko) 4.0 (2) IE 9 Opera 11.60 Safari 5.1.4
+	* Basic support: Chrome 7 Firefox 4 IE 9 Opera 11.60 Safari 5.1.4
 	*
 	* http://msdn.microsoft.com/en-us/library/s4esdbwz(v=vs.94).aspx
 	*/
@@ -87,6 +87,10 @@
 
 	O = String[P]
 	add("trim", "return this.replace(/^\\s+|\\s+$/g,'')")
+
+	// Chrome 24, FF 15, IE 10
+	O = window.performance || (window.performance = {})
+	add("now", "return+new Date")
 
 	O = Date
 	add("now", "return+new Date")
